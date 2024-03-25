@@ -1,25 +1,20 @@
-// Підключення модуля readline для зчитування зі стандартного вводу
 const readline = require('readline');
 
-// Функція для обчислення тривалості комплексу робіт
 function calculateDuration(tasks) {
   let totalDuration = 0;
 
-  // Проходимося по всім завданням
   for (let task of tasks) {
-    let optimisticTime = parseFloat(task.optimistic); // Оптимістичний час виконання завдання
-    let pessimisticTime = parseFloat(task.pessimistic); // Песимістичний час виконання завдання
-    let mostLikelyTime = parseFloat(task.mostLikely); // Найбільш ймовірний час виконання завдання
+    let optimisticTime = parseFloat(task.optimistic); 
+    let pessimisticTime = parseFloat(task.pessimistic); 
+    let mostLikelyTime = parseFloat(task.mostLikely); 
 
-    // Обчислюємо тривалість за формулою РЕР (резерв часу)
     let duration = (optimisticTime + (4 * mostLikelyTime) + pessimisticTime) / 6;
-    totalDuration += duration; // Додаємо до загальної тривалості
+    totalDuration += duration;
   }
 
   return totalDuration;
 }
 
-// Функція для отримання даних від користувача через стандартний ввід
 function getTasksFromUser() {
   const rl = readline.createInterface({
     input: process.stdin,
@@ -53,7 +48,6 @@ function getTasksFromUser() {
   });
 }
 
-// Отримуємо дані від користувача та обчислюємо тривалість
 async function main() {
   let tasks = await getTasksFromUser();
   let duration = calculateDuration(tasks);
